@@ -1,22 +1,32 @@
 #!/usr/bin/env bash
 
+isUpper() {
+  if [[ ! $1 =~ [[:lower:]] && $1 =~ [[:upper:]] ]]; then
+    return 0
+  fi
+    return 1
+}
+
+
+isQuestion() {
+  if [[ $sentence =~ \?$ ]]; then
+    return 0
+  fi
+    return 1
+}
 
 main() {
 
   sentence=${1//[[:space:]]/}
- 
-  if [[ $sentence =~ \?$ ]] && [[ ! $1 =~ [[:lower:]] ]]; then
+
+  if isQuestion $sentence && isUpper $sentence; then
     echo "Calm down, I know what I'm doing!"
-    exit
-  elif [[ ! $sentence =~ [[:lower:]] ]]; then
-    echo "Whoa, chill out!"
-    exit
-  elif [[ $sentence =~ \?$ ]]; then
-    echo "Sure."
-    exit
   elif [[ $sentence =~ ^$ ]]; then
     echo "Fine. Be that way!"
-    exit
+  elif isUpper $sentence; then
+    echo "Whoa, chill out!"
+  elif isQuestion $sentence; then
+    echo "Sure."
   else
     echo "Whatever." 
   fi

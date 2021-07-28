@@ -2,17 +2,14 @@
 
 class Matrix:
     def __init__(self, matrix_string):
-        self.matrix = list(matrix_string.splitlines())
+        # Creating list of lists, and converting to integers.
+        self.matrix = [list(map(int, i.split())) for i in matrix_string.splitlines()]
+
 
     def row(self, index):
-        # Creating list from row index, then converting to integers.
-        r = list(self.matrix[index-1].split())
-        return list(map(lambda x: int(x), r))
+        return self.matrix[index-1]
         
 
     def column(self, index):
-        # Creating list of lists, pulling column index from each into
-        # a new list, then converting to integers.
-        c = list(i.split() for i in self.matrix)
-        c = list(i[index-1]for i in c)
-        return list(map(lambda x: int(x), c))
+        return [i[index-1] for i in self.matrix]
+

@@ -1,18 +1,11 @@
 #!/usr/bin/env bash
 
 isUpper() {
-  if [[ ! $1 =~ [[:lower:]] && $1 =~ [[:upper:]] ]]; then
-    return 0
-  fi
-    return 1
+  [[ ! $1 =~ [[:lower:]] && $1 =~ [[:upper:]] ]]
 }
 
-
 isQuestion() {
-  if [[ $sentence =~ \?$ ]]; then
-    return 0
-  fi
-    return 1
+  [[ $1 =~ \?$ ]] 
 }
 
 main() {

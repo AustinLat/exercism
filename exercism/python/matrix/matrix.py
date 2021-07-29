@@ -1,15 +1,12 @@
 #!/usr/bin/env python3 
 
 class Matrix:
-    def __init__(self, matrix_string):
-        # Creating list of lists, and converting to integers.
-        self.matrix = [list(map(int, i.split())) for i in matrix_string.splitlines()]
+    def __init__(self, matrix_string: str):
+        """Create list of lists, and convert string input to integers"""
+        self.matrix = [[int(x) for x in i.split()] for i in matrix_string.splitlines()]
 
-
-    def row(self, index):
+    def row(self, index: int) -> list:
         return self.matrix[index-1]
-        
 
-    def column(self, index):
+    def column(self, index: int) -> list:
         return [i[index-1] for i in self.matrix]
-

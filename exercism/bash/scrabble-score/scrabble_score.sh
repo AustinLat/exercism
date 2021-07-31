@@ -8,8 +8,8 @@ main() {
           [L]=1 [M]=3 [N]=1 [O]=1 [P]=3 [Q]=10 [R]=1 [S]=1 [T]=1 [U]=1 [V]=4 
           [W]=4 [X]=8 [Y]=4 [Z]=10)
   upper="${1^^}"
-  for (( i=0; i<"${#upper}"; i++ )); do
-    total=$(("$total" + "${points[${upper:$i:1}]}"))
+  for (( i=0; i<${#upper}; i++ )); do
+    (( total += points[${upper:i:1}] ))
   done
   echo "$total"
 }

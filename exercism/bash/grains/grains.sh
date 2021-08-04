@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 
-set -x
+#set -x
 main(){
+  if [[ $1 == "total" ]]; then
+    echo "18446744073709551615" && exit 0
+  fi
   if [[ $1 < 1 ]] || [[ $1 > 64 ]]; then
     echo "Error: invalid input" && exit 1
   fi
-#  if [[ $1 == "total" ]]; then
-#    echo "18446744073709551615" && exit
-#  fi
+
   total=1
   i=1
   while [[ $i -lt $1 ]]; do

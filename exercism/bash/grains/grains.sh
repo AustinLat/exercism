@@ -12,7 +12,7 @@ main(){
     echo "Error: invalid input" && exit 1
   fi
 
-  grains=$((2**(($1-1))))
+  grains=$((2**($1-1)))
   if (( grains > 0 )); then
     echo "$grains"
   else

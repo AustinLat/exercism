@@ -6,5 +6,4 @@ def is_isogram(string: str) -> bool:
     compare set to string lengths."""
     string=string.replace(" ", "")
     string=string.replace("-", "").lower()
-    isoset={i for i in string}
-    return len(string) == len(isoset)
+    return len(string) == len(set(string))

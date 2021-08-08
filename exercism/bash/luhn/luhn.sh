@@ -5,10 +5,7 @@ main() {
   num=${1//[[:blank:]]/}
   
   # Checking for invalid input.
-  if (( ${#num} < 2 )); then
-    echo "false"; exit
-  fi
-  if ! [[ $num =~ ^[0-9]+$ ]]; then
+  if (( ${#num} < 2 )) || ! [[ $num =~ ^[0-9]+$ ]]; then
     echo "false"; exit
   fi
   
@@ -24,7 +21,7 @@ main() {
     if (( (i%2) == 0 )); then
       double=$((${revnum:i-1:1}*2))
       if (( $double > 9 )); then
-        double=$((double - 9))
+        double=$((double - 9)) 
       fi
       total=$((total + double))
     else

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 main() {
-  # Rmoving whitespace from input
+  # Removing whitespace from input
   num=${1//[[:blank:]]/}
   
   # Checking for invalid input.

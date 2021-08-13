@@ -18,6 +18,10 @@ def recite(start_verse, end_verse):
         start_verse = n
         song = f"On the {days[str(start_verse)][0]} day of Christmas my true love gave to me: "
         for i in range(start_verse, 0, -1):
-            song += days[str(i)][1]
+            if start_verse == 1:
+                song += "a Partridge in a Pear Tree."
+            else:
+                song += days[str(i)][1]
         songlist.append(song)
+    
     return songlist

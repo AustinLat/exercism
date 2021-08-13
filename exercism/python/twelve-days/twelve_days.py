@@ -13,14 +13,13 @@ def recite(start_verse, end_verse):
         "10": ["tenth", "ten Lords-a-Leaping, "],
         "11": ["eleventh", "eleven Pipers Piping, "],
         "12": ["twelfth", "twleve Drummers Drumming, "]}
-    song = [f"On the {days[str(start_verse)][0]} day of Christmas my true love gave to me: "]
-    #print(f"On the {days[str(start_verse)][0]} day of Christmas my true love gave to me: ")
-    #for i in range(start_verse, 0, -1):
-    #    song.append(days[str(i)][1])
-    [song.append(days[str(i)][1]) for i in range(start_verse, 0, -1)]
-    #song.append(f"On the {days[str(start_verse)][0]} day of Christmas my true love gave to me: ")
-    #return [i for i in reversed(song)]
-    print([i for i in song])
+    songlist = []
+    song = f"On the {days[str(start_verse)][0]} day of Christmas my true love gave to me: "
+    for i in range(start_verse, 0, -1):
+        song += days[str(i)][1]
+    #print([i for i in song])
+    songlist.append(song)
+    return songlist
 
-if __name__ == "__main__":
-    recite(2, 2)
+#if __name__ == "__main__":
+#    recite(2, 2)

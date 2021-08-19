@@ -14,7 +14,7 @@ main() {
     input=${input//[^[:alnum:]]/}
     st=""
     for (( i=0; i!="${#input}"; i+=1 )); do
-      if [ ${input:$i:1}[:digit:] ]; then
+      if [[ ${input:$i:1} =~ [0-9] ]]; then
         #need to figure out why this if statement isnt working and breaking all
         #tests
         st+=${input:$i:1}

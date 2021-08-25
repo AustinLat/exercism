@@ -13,17 +13,15 @@ main() {
     [t]=g [s]=h [r]=i [q]=j [p]=k [o]=l [n]=m
     [m]=n [l]=o [k]=p [j]=q [i]=r [h]=s [g]=t
     [f]=u [e]=v [d]=w [c]=x [b]=y [a]=z)
- 
-    input=${2//[[:blank:]]/}
-    input=${input,,}
-    input=${input//[^[:alnum:]]/}
-    st=""
-    for (( i=0; i!="${#input}"; i+=1 )); do
-      [[ ${input:$i:1} =~ [0-9] ]] && st+=${input:$i:1} && continue
-      [[ ${1} == "encode" ]] && (( ${i} % 5 == 0 )) && st+=" "
-      [[ ${1} == "encode" ]] && st+=${enc[${input:$i:1}]} || st+=${dec[${input:$i:1}]}
-    done 
-    echo $st
+  
+  declare -l input=${2//[^[:alnum:]]/}
+  st=""
+  for (( i=0; i!="${#input}"; i+=1 )); do
+    [[ ${input:$i:1} =~ [0-9] ]] && st+=${input:$i:1} && continue
+    [[ ${1} == "encode" ]] && (( ${i} % 5 == 0 )) && st+=" "
+    [[ ${1} == "encode" ]] && st+=${enc[${input:$i:1}]} || st+=${dec[${input:$i:1}]}
+  done 
+  echo $st
 }
 
 main "$@"

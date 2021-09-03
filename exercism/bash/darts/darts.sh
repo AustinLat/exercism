@@ -15,8 +15,14 @@ main() {
   (( $1 < 0 )) && lat=$(($1 * -1)) || lat=$1
   (( $2 < 0 )) && lon=$(($2 * -1)) || lon=$2
   echo $lat $lon
-  echo $(((e(l(lat)*2)) + (e(l(lon)*2))) | bc -l)
-  echo $distance
+  double=$((lat * 2 + lon * 2))
+  sq=$(echo "scale=1; sqrt($double)" | bc)
+  echo $sq
+  (( echo $($sq > 10 )) | bc) && echo 0 && exit
+  (( $sq > 5 )) && echo 1 && exit
+  (( $sq > 1 )) && echo 5 && exit
+  echo 10 && exit
+  
 }
 
 main "$@"

@@ -4,10 +4,6 @@ from collections import Counter
 import re
 
 def count_words(sentence: str) -> dict:
-    '''Take a string as input, seperate words by comma, underline, and spaces.
-    Strip off all punctuation charaters from each word, then count the amount
-    of times each word is presented.  Return this as a dictionary of word
-    as key, and count as value..'''
-    sentence = sentence.replace(",", " ").replace("_", " ")
-    return dict(Counter([word.lower().strip("!&@.$%^&:'") for word in
-        sentence.split()]))
+    '''Take a string as input.  Use counter to find and count each instance of a
+    word using RegEx'''
+    return Counter(re.findall(r"[a-zA-Z0-9]+(?:'[a-zA-Z])?", sentence.lower()))

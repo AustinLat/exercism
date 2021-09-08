@@ -11,16 +11,17 @@
 
 main() {
   (( ${#@} != 2 )) && echo "Invalid arguments" && exit 1 
-  echo "arguments valid"
-  (( $1 < 0 )) && lat=$(($1 * -1)) || lat=$1
-  (( $2 < 0 )) && lon=$(($2 * -1)) || lon=$2
-  echo $lat $lon
-  double=$((lat * 2 + lon * 2))
-  sq=$(echo "scale=1; sqrt($double)" | bc)
-  echo $sq
-  (( echo $($sq > 10 )) | bc) && echo 0 && exit
-  (( $sq > 5 )) && echo 1 && exit
-  (( $sq > 1 )) && echo 5 && exit
+  #echo "arguments valid"
+  (( $(echo "$1 < 0" | bc) )) && lat=$(echo "$1 * -1" | bc) || lat=$1
+  (( $(echo "$2 < 0" | bc) )) && lon=$(echo "$2 * -1" | bc) || lon=$2
+  #echo $lat $lon
+  double=$(echo "$lat^2 + $lon^2" | bc)
+  #echo "after double calculation $double"
+  sq=$(echo "scale=1;sqrt($double)" | bc)
+  #echo $sq
+  (( $(echo "$sq > 10" | bc) == 1 )) && echo 0 && exit
+  (( $(echo "$sq > 5" | bc) == 1 )) && echo 1 && exit
+  (( $(echo "$sq > 1" | bc) == 1 )) && echo 5 && exit
   echo 10 && exit
   
 }

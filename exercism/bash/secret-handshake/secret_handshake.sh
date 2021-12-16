@@ -1,18 +1,23 @@
 #!/usr/bin/bash
 
 
-set -x
+#set -x
 
 binary=$(echo "obase=2;$1" | bc)
 declare -a actions
-declare -a binarray
 
 main() {
   echo $binary
   for ((i = 0 ; i < ${#binary} ; i++)); do
-#    echo ${binary:i:${#binary}}
-    [[ $((${binary:i:${#binary}} % 10000)) -eq 0 ]] && echo reversed
+    number=${binary:i:${#binary}}
+    
+    [[ ${#number} -eq 5 ]] && [[ ${binary:i:1} -eq 1 ]] && actions+=("reversed")
+    [[ ${#number} -eq 4 ]] && [[ ${binary:i:1} -eq 1 ]] && actions+=("jump")
+    [[ ${#number} -eq 3 ]] && [[ ${binary:i:1} -eq 1 ]] && actions+=("close your eyes")
+    [[ ${#number} -eq 2 ]] && [[ ${binary:i:1} -eq 1 ]] && actions+=("double blink")
+    [[ ${#number} -eq 1 ]] && [[ ${binary:i:1} -eq 1 ]] && actions+=("wink")
   done
+  echo ${actions[*]}
 }
 
 

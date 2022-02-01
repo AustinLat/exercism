@@ -1,25 +1,10 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
-#declare -A counts
-
-#main() {
-#  local IFS="${IFS}," 
-#  for word in $1; do
-#    counts[$word]=$((${counts[$word]}+1))
-#  done
-#  for i in ${!counts[*]}; do
-#    echo $i: ${counts[$i]}
-#  done
-#}
-
-#main "$@"
-         
-
-#=================================================================
 
 remove_quotes() {
   [[ "$1" == \'*\' ]] && echo "${1:1:-1}" || echo "$1"
 }
+
 word_count() {
   local words="${1,,}"
   local cleaned

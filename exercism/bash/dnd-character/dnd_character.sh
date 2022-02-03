@@ -1,28 +1,43 @@
 #!/usr/bin/env bash
 
 
+
+
 gen_stats() {
   echo "$(( $RANDOM % 7 + 0 ))" "$(( $RANDOM % 7 + 0 ))" "$(( $RANDOM % 7 + 0))" "$(( $RANDOM % 7 + 0 ))"
 }
 
-main() {
-#  local -a strength=($(gen_stats))
-#  local -a dexterity=($(gen_stats))
-  local -a constitution=($(gen_stats))
-#  local -a intelligence=($(gen_stats))
-#  local -a wisdom=($(gen_stats))
-#  local -a charisma=($(gen_stats))
-
+sort_chop() {
   IFS=$'\n'
-  sorted_constitution=($(sort -g <<<"${constitution[*]}"))
+  sorted=($(sort -g <<<"$1"))
   unset IFS
-  echo constitution numbers: ${sorted_constitution[@]:1:3}
+  echo sorted: ${sorted[@]}
   total=0
-  for i in ${sorted_constitution[@]:1:3}; do
+  for i in ${sorted[@]:1:3}; do
     (( total+=$i ))
   done
-  total=$(( total + 10 ))
-  echo constitution toal: $total
+#  echo $total
+}
+
+main() {
+  declare -a strength=($(gen_stats))
+  declare -a dexterity=($(gen_stats))
+  declare -a constitution=($(gen_stats))
+  declare -a intelligence=($(gen_stats))
+  declare -a wisdom=($(gen_stats))
+  declare -a charisma=($(gen_stats))
+
+#  IFS=$'\n'
+#  sorted_constitution=($(sort -g <<<"${constitution[*]}"))
+#  unset IFS
+#  total=0
+#  for i in ${sorted_constitution[@]:1:3}; do
+#    (( total+=$i ))
+#  done
+#  total=$(( total + 10 ))
+#  echo ${strength[*]}
+   echo "strength $(sort_chop "${strength[@]}")"
+
 }
 
 main "$@"

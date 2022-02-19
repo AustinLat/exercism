@@ -17,8 +17,7 @@ func SetItem(slice []int, index, value int) []int {
     slice[index] = value
     return slice
   } else {
-    slice := append(slice, value)
-    return slice
+    return append(slice, value)
   }
 }
 

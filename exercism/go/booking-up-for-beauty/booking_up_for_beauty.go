@@ -10,13 +10,17 @@ func Schedule(date string) time.Time {
 
 // HasPassed returns whether a date has passed
 func HasPassed(date string) bool {
-  t := Schedule(date)
-  return t.Before(time.Now())
+  t, _ := time.Parse("January 2, 2006 15:04:05", date)
+  now := time.Now()
+  return t.Before(now)
 }
 
 // IsAfternoonAppointment returns whether a time is in the afternoon
 func IsAfternoonAppointment(date string) bool {
-	panic("Please implement the IsAfternoonAppointment function")
+  appointment, _ := time.Parse("Monday, January 2, 2006 15:04:05", date)
+  noon, _ := time.Parse("15:04:05", "11:59:59")
+  closing, _ := time.Parse("15:04:05", "18:00:00")
+  return appointment.Before(closing) && appointment.After(noon)
 }
 
 // Description returns a formatted string of the appointment time

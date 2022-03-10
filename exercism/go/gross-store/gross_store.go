@@ -19,12 +19,10 @@ func NewBill() map[string]int {
 
 // AddItem adds an item to customer bill.
 func AddItem(bill, units map[string]int, item, unit string) bool {
-  _, unitExists := units[unit]
-  _, itemExists := bill[item]
-  if unitExists == false {
+  if Exists(units, unit) == false {
     return false
   }
-  if itemExists {
+  if Exists(bill, item) {
     bill[item] = bill[item] + units[unit]
     return true
   }
@@ -34,9 +32,7 @@ func AddItem(bill, units map[string]int, item, unit string) bool {
 
 // RemoveItem removes an item from customer bill.
 func RemoveItem(bill, units map[string]int, item, unit string) bool {
-  _, itemExists := bill[item]
-  _, unitExists := units[unit]
-  if itemExists == false || unitExists == false {
+  if Exists(bill, item) == false || Exists(units, unit) == false {
     return false
   }
   if bill[item] - units[unit] == 0 {
@@ -52,9 +48,14 @@ func RemoveItem(bill, units map[string]int, item, unit string) bool {
 
 // GetItem returns the quantity of an item that the customer has in his/her bill.
 func GetItem(bill map[string]int, item string) (int, bool) {
-  _, itemExists := bill[item]
-  if itemExists == false {
+  if Exists(bill, item) == false {
     return 0, false
   }
   return bill[item], true
+}
+
+// Exists returns a bool stating whether key exists in given map.
+func Exists(mp map[string]int, key string) bool {
+  _, exists := mp[key]
+  return exists
 }

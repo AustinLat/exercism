@@ -10,23 +10,25 @@ func NewVoteCounter(initialVotes int) *int {
 
 // VoteCount extracts the number of votes from a counter.
 func VoteCount(counter *int) int {
-	return *counter
+	if counter == nil {
+        return 0
+    }
+    return *counter
 }
 
 // IncrementVoteCount increments the value in a vote counter
 func IncrementVoteCount(counter *int, increment int) {
-    count := &counter
-    &counter = count + increment
+    *counter = *counter + increment
 }
 
 // NewElectionResult creates a new election result
 func NewElectionResult(candidateName string, votes int) *ElectionResult {
-    return &ElectionResult(candidateName, votes)
+    return &ElectionResult{Name: candidateName, Votes:votes}
 }
 
 // DisplayResult creates a message with the result to be displayed
 func DisplayResult(result *ElectionResult) string {
-    fmt.Printf("%v (%v)", &result.Name, &result.Votes)
+    return fmt.Sprintf("%v (%v)", result.Name, result.Votes)
 }
 
 // DecrementVotesOfCandidate decrements by one the vote count of a candidate in a map

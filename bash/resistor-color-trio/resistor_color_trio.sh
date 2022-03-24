@@ -22,11 +22,12 @@ main() {
     shift
   done
   zeros=""
-  for i in seq ${colors[$1]}; do
+  for i in $(seq ${colors[$1]}); do
     zeros="${zeros}0"
-  done  
+  done
+  echo ${zeros}
   ohms="${ohms}${zeros}"
-  echo ${ohms}
+  (( ${#zeros} > 2 )) && echo "${ohms} kiloohms" || echo "${ohms} ohms"
 }
 
 main "$@"

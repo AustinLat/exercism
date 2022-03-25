@@ -63,7 +63,7 @@
     #[[ $BATS_RUN_SKIPPED == "true" ]] || skip
     run bash resistor_color_trio.sh "white" "white" "white"
     (( status == 0 ))
-    #[[ $output == "99 gigaohms" ]]
+    [[ $output == "99 gigaohms" ]]
 }
 
 

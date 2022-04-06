@@ -1,3 +1,5 @@
+package expenses
+
 // Record represents an expense record.
 type Record struct {
 	Day      int
@@ -25,11 +27,12 @@ func Filter(in []Record, predicate func(Record) bool) []Record {
 // ByDaysPeriod returns predicate function that returns true when
 // the day of the record is inside the period of day and false otherwise
 func ByDaysPeriod(p DaysPeriod) func(Record) bool {
-    return func() bool {
-        if p.From <= in.Day && p.To >= in.Day {
+    return func(Record) bool {
+        if p.From <= Record.Day && p.To >= Record.Day {
             return true
+        } else {
+            return false
         }
-        return false
     }
 }
 

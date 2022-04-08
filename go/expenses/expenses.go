@@ -1,5 +1,9 @@
 package expenses
 
+//import (
+//    "errors"
+//)
+
 // Record represents an expense record.
 type Record struct {
 	Day      int
@@ -15,9 +19,9 @@ type DaysPeriod struct {
 
 // Filter returns the records for which the predicate function returns true.
 func Filter(in []Record, predicate func(Record) bool) []Record {
-    newRecord := make([]Record, len(in))
+    var newRecord = []Record{}
     for i, v := range in {
-        if predicate(v) == true {
+        if predicate(v) {
             newRecord = append(newRecord, in[i])
         }
     }
@@ -27,12 +31,8 @@ func Filter(in []Record, predicate func(Record) bool) []Record {
 // ByDaysPeriod returns predicate function that returns true when
 // the day of the record is inside the period of day and false otherwise
 func ByDaysPeriod(p DaysPeriod) func(Record) bool {
-    return func(Record) bool {
-        if p.From <= Record.Day && p.To >= Record.Day {
-            return true
-        } else {
-            return false
-        }
+    return func(record Record) bool {
+        return p.From <= record.Day && p.To >= record.Day
     }
 }
 
@@ -40,13 +40,23 @@ func ByDaysPeriod(p DaysPeriod) func(Record) bool {
 // the category of the record is the same as the provided category
 // and false otherwise
 func ByCategory(c string) func(Record) bool {
-	panic("Please implement the ByCategory function")
+    return func(record Record) bool {
+        return c == record.Category
+    }
 }
 
 // TotalByPeriod returns total amount of expenses for records
 // inside the period p
 func TotalByPeriod(in []Record, p DaysPeriod) float64 {
-	panic("Please implement the TotalByPeriod function")
+    var total = 0.0
+    for _, v := range in {
+        period := ByDaysPeriod(p)
+        if period(v) {
+            total += v.Amount
+        }
+    }
+    if total == 0.0 { return 0 }
+    return total
 }
 
 // CategoryExpenses returns total amount of expenses for records
@@ -54,5 +64,7 @@ func TotalByPeriod(in []Record, p DaysPeriod) float64 {
 // An error must be returned only if there are no records in the list that belong
 // to the given category, regardless of period of time.
 func CategoryExpenses(in []Record, p DaysPeriod, c string) (float64, error) {
-	panic("Please implement the CategoryExpenses function")
+    for _, v := range in {
+        err, cat := v.c
+    }
 }

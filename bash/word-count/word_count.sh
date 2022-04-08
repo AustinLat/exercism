@@ -3,8 +3,11 @@
 
 main() {
     declare -A wordCount
-    words=${1,,}
-
+    
+    input=${1,,}
+    input=${input//\\n/ }
+    
+    read -ra words <<<"${input}"
     for i in ${words[@]}; do
         [[ ! -v wordCount[$i] ]] && wordCount[$i]=1 ||
             wordCount[$i]=$(( ${wordCount[$i]} + 1 ))

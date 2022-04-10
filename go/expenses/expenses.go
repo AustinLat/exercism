@@ -48,14 +48,9 @@ func ByCategory(c string) func(Record) bool {
 // TotalByPeriod returns total amount of expenses for records
 // inside the period p
 func TotalByPeriod(in []Record, p DaysPeriod) float64 {
-    var total = 0.0
-    for _, v := range in {
-        period := ByDaysPeriod(p)
-        if period(v) {
-            total += v.Amount
-        }
-    }
-    if total == 0.0 { return 0 }
+    inPeriod := Filter(in, ByDaysPeriod(p))
+    total := 0.0
+    for _, v := range inPeriod { total += v.Amount }
     return total
 }
 
@@ -64,18 +59,9 @@ func TotalByPeriod(in []Record, p DaysPeriod) float64 {
 // An error must be returned only if there are no records in the list that belong
 // to the given category, regardless of period of time.
 func CategoryExpenses(in []Record, p DaysPeriod, c string) (float64, error) {
-    er := true
-    total := 0.0
-    for _, v := range in {
-        if ByCategory(c)(v) {
-            er = false
-            if ByDaysPeriod(p)(v) {
-                total += v.Amount
-            }
-        }
+    CategoryFound := Filter(in, ByCategory(c))
+    if len(CategoryFound) == 0 {
+        return 0, errors.New("No record for that category.")
     }
-    if er {
-        return total, errors.New("No record for that category.")
-    }
-    return total, nil
+    return TotalByPeriod(CategoryFound, p), nil
 }

@@ -7,11 +7,10 @@ gen_stats() {
 
 
 main() {
-  declare -a abilities=("strength" "dexterity" "constitution" "intelligence"
-  "wisdom" "charisma")
+  declare -a abilities=("strength" "dexterity" "constitution" "intelligence" "wisdom" "charisma")
 
-  for ((i=0; i<=6; i++)); do
-    declare -a $(abilities[i])=($(gen_stats))
+  for (( i=0; i<=6; i++ )); do
+    declare -a $(abilities[i])=($gen_stats)
   done
 
   echo ${strength[@]}

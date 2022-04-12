@@ -4,7 +4,7 @@ package elon
 type Car struct {
 	speed        int
 	batteryDrain int
-
+    driven int
 	battery  int
 	distance int
 }

@@ -8,22 +8,30 @@ import (
 // See types.go for the types defined for this exercise.
 
 // TODO: Define the SillyNephewError type here.
-var SillyNephewError = errors.New(fmt.Sprintf("Silly nephew, there cannot be blank cows"))
+type SillyNephewError struct {
+    cow int
+}
+func (e *SillyNephewError) Error() string {
+    return fmt.Sprintf("silly nephew, there cannot be %d cows", e.cow)
+}
 
 // DivideFood computes the fodder amount per cow for the given cows.
 func DivideFood(weightFodder WeightFodder, cows int) (float64, error) {
     fodder, err := weightFodder.FodderAmount()
-    fodder = fodder / float64(cows)
-    if err == ErrScaleMalfunction {
-        fodder = fodder * 2
-        return fodder, nil
-    }
-    if fodder < 0 { return 0,  }
-    if cows < 0 { return 0, SillyNephewError }
-
-    if err != nil {
+    switch {
+    case err == ErrScaleMalfunction:
+        fodder = fodder / float64(cows)
+        return fodder * 2, nil
+    case err != nil:
         return 0, err
+    case fodder < 0:
+        return 0, errors.New("negative fodder")
+//    case err != nil:
+//        return 0, err
+    case cows == 0:
+        return 0, errors.New("division by zero")
+    case cows < 0:
+        return 0, &SillyNephewError{cow: cows}
     }
-    return fodder, nil
-//    fodder, err := weightFodder / cows
+    return fodder / float64(cows), err
 }

@@ -19,19 +19,24 @@ func (e *SillyNephewError) Error() string {
 func DivideFood(weightFodder WeightFodder, cows int) (float64, error) {
     fodder, err := weightFodder.FodderAmount()
     switch {
-    case err == ErrScaleMalfunction:
-        fodder = fodder / float64(cows)
-        return fodder * 2, nil
-    case err != nil:
-        return 0, err
-    case fodder < 0:
-        return 0, errors.New("negative fodder")
-//    case err != nil:
-//        return 0, err
-    case cows == 0:
-        return 0, errors.New("division by zero")
     case cows < 0:
         return 0, &SillyNephewError{cow: cows}
+    case cows == 0:
+        return 0, errors.New("division by zero")
     }
-    return fodder / float64(cows), err
+    if err != nil {
+        if err == ErrScaleMalfunction {
+            if fodder < 0 {
+                return 0.0, errors.New("negative fodder")
+            } else {
+                fodder *= 2
+            }
+        } else {
+            return 0.0, err
+        }
+    }
+    if fodder < 0 {
+        return 0.0, errors.New("negative fodder")
+    }
+    return fodder / float64(cows), nil
 }

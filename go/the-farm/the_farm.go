@@ -20,23 +20,15 @@ func DivideFood(weightFodder WeightFodder, cows int) (float64, error) {
     fodder, err := weightFodder.FodderAmount()
     switch {
     case cows < 0:
-        return 0, &SillyNephewError{cow: cows}
+        return 0.0, &SillyNephewError{cow: cows}
     case cows == 0:
-        return 0, errors.New("division by zero")
-    }
-    if err != nil {
-        if err == ErrScaleMalfunction {
-            if fodder < 0 {
-                return 0.0, errors.New("negative fodder")
-            } else {
-                fodder *= 2
-            }
-        } else {
-            return 0.0, err
-        }
-    }
-    if fodder < 0 {
-        return 0.0, errors.New("negative fodder")
+        return 0.0, errors.New("division by zero")
+    case err != nil:
+        if err == ErrScaleMalfunction && fodder < 0 { return 0.0, errors.New("negative fodder")}
+        if err == ErrScaleMalfunction { fodder *= 2 }
+        if err != ErrScaleMalfunction { return 0.0, err }
+    case fodder < 0:
+        return 0.0, errors.New ("negative fodder")
     }
     return fodder / float64(cows), nil
 }

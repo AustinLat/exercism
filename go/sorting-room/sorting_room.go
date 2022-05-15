@@ -34,8 +34,11 @@ type FancyNumberBox interface {
 // ExtractFancyNumber should return the integer value for a FancyNumber
 // and 0 if any other FancyNumberBox is supplied.
 func ExtractFancyNumber(fnb FancyNumberBox) int {
-    numbstring, _ := fnb.(FancyNumber)
-    num, _ := strconv.Atoi(numbstring.Value())
+    numbstring, ok := fnb.(FancyNumber)
+    if !ok {
+        return 0
+    }
+    num, err := strconv.Atoi(numbstring.Value())
     return num
 }
 
@@ -56,6 +59,6 @@ func DescribeAnything(i interface{}) string {
     case FancyNumberBox:
         return DescribeFancyNumberBox(v)
     default:
-        return fmt.Sprint("Return to sender")
+        return "Return to sender"
     }
 }

@@ -52,7 +52,7 @@ def exchangeable_value(budget, exchange_rate, spread, denomination):
     :return: int - maximum value you can get.
     """
 
-    pass
+    
 
 
 def non_exchangeable_value(budget, exchange_rate, spread, denomination):

@@ -12,7 +12,7 @@ func Valid(id string) bool {
 
   startIndex := 0
   total := 0
-  if len(id) % 2 != 0 {
+  if len(id) % 2 == 0 {
     startIndex = 1
   }
 
@@ -21,22 +21,21 @@ func Valid(id string) bool {
   if startIndex == 0 {
     startIndex = 1
   } else { startIndex = 0 }
-  
+ 
   for i := startIndex; i < len(id); i=i+2 {
     total += int(id[i])
   }
 
   if total % 10 == 0 {
     return true
-  }
-  return false
+  } else { return false }
 }
 
 func Doubles(start int, input string) int {
   tot := 0
   for i := start; i < len(input); i=i+2 {
-    if input[i] * 2 > 9 {
-      tot = tot - 9
+    if int(input[i])*2>9 {
+      tot += int(input[i])*2-9
     } else { tot += int(input[i])*2 }
   }
   return tot

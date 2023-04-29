@@ -39,7 +39,7 @@ def create_record(azara_record, rui_record):
     """
 
     if compare_records(azara_record, rui_record):
-        return (azara_record[0], azara_record[1], rui_record[0], rui_record[1], rui_record[2]) 
+        return azara_record + rui_record
     return "not a match"
 
 def clean_up(combined_record_group):
@@ -53,4 +53,7 @@ def clean_up(combined_record_group):
     (see HINTS.md for an example).
     """
 
-    
+    combined = ""
+    for record in combined_record_group:
+        combined = combined+str(record[:1] + record[2:])+"\n"
+    return combined

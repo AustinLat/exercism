@@ -7,8 +7,7 @@ def get_list_of_wagons(*args):
     :param: arbitrary number of wagons.
     :return: list - list of wagons.
     """
-    wagon_list = args
-    return wagon_list
+    return list(args)
 
 
 def fix_list_of_wagons(each_wagons_id, missing_wagons):
@@ -18,7 +17,8 @@ def fix_list_of_wagons(each_wagons_id, missing_wagons):
     :parm missing_wagons: list - the list of missing wagons.
     :return: list - list of wagons.
     """
-    return list(each_wagons_id[2]) + list(missing_wagons) + list(missing_wagons_id[3:-1]) + missing_wagons_id[0:2] 
+    second_to_last, last, wagon_engine, *wagon_caboose = each_wagons_id
+    return [wagon_engine, *missing_wagons, *wagon_caboose, second_to_last, last] 
 
 
 def add_missing_stops():

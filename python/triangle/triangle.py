@@ -1,3 +1,14 @@
+def isatriangle(sides):
+	for i, item in enumerate(sides):
+		if item == 0:
+			return False
+		if i == 0 and item > sides[1] + sides[2]:
+			return False
+		if i == 1 and item > sides[0] + sides[2]:
+			return False
+		if i == 2 and item > sides[0] + sides[1]:
+			return False
+
 def equilateral(sides):
 	for i in sides:
 		if i == 0:
@@ -8,16 +19,8 @@ def equilateral(sides):
 		return False
 	
 def isosceles(sides):
-	for i, item in enumerate(sides):
-		if item == 0:
-			return False
-		if i == 0 and item > sides[1] + sides[2]:
-			return False
-		if i == 1 and item > sides[0] + sides[2]:
-			return False
-		if i == 2 and item > sides[0] + sides[1]:
-			return False
-		
+	if isatriangle(sides) == False:
+		return False	
 	if equilateral(sides) == True:
 		return True
 	if sides[0] == sides[1] or sides[1] == sides[2] or sides [0] == sides[2]:
@@ -25,20 +28,10 @@ def isosceles(sides):
 	else:
 		return False
 
-
 def scalene(sides):
-	for i, item in enumerate(sides):
-		if item == 0:
-			return False
-		if i == 0 and item > sides[1] + sides[2]:
-			return False
-		if i == 1 and item > sides[0] + sides[2]:
-			return False
-		if i == 2 and item > sides[0] + sides[1]:
-			return False
-
-	if sides[0] != sides[1] or sides[1] != sides[2] or sides [0] != sides[2]:
+	if isatriangle(sides) == False:
+		return False
+	if isosceles(sides) == False:
 		return True
 	else:
 		return False
-	
